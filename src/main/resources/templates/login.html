@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrador | Iglesia</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="height: 100vh; background: #FFFBF2">
+    <div style="height: inherit" class="container">
+        <div style="height: inherit" class="row justify-content-center align-content-center">
+            <div class="col-4">
+                <img style="display: block; margin: 1em auto;" src="/images/logo.png" width="60px" alt="Logo">
+                <h1 style="font-size: 30px;" class="text-center">Administración</h1>
+                <form style="box-shadow: 0px 0 4px rgba(0,0,0,.2);  border-radius: 6px; border-top: 2px solid #007bff; background: #FFEFC7;" class="p-4" action="/validateLogin" method="POST">
+                    <div class="header-form">
+                        <p class="text-center">Identifíquese para iniciar sesión</p>
+                        <img class="my-2 mx-auto d-block" src="/images/perfil.png" width="200px" alt="User" />
+                    </div>
+                    <div style="position: relative;" class="form-group">
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" placeholder="Username">
+                        <img style="position: absolute; right: 0; top: 0; bottom: 0; background: #1f4772; border-radius: 0 0.25rem 0.25rem 0; width: 35px; height: 100%" src="/images/user_icon.png" width="25px" alt="userIcon" />
+                    </div>
+                    <div style="position: relative;" class="form-group">
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
+                        <img style="position: absolute; right: 0; top: 0; bottom: 0; background: #1f4772; border-radius: 0 0.25rem 0.25rem 0; width: 35px; height: 100%" src="/images/lock_icon.png" width="25px" alt="userIcon" />
+                    </div>
+                    <button style="display:block;margin-left: auto; margin-right: 0; background: #67D3AC;" type="submit" class="btn w-100">Iniciar Sesión</button>
+                    <p style="background: #000; color: #fff; padding: 6px; text-align: center; border-radius: 4px;" class="my-2" th:text="${msg}"></p>
+                    <a style="color: #000; text-decoration: none; font-size: 14px;" href="">Olvidé mi contraseña</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Asistencia | Iglesia</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .hidden {
+			display: none;
+		}
+    </style>
+</head>
+<body style="height: 100vh">
+<div style="height: inherit;" class="container-fluid">
+    <div style="height: inherit;" class="row">
+        <div th:replace="~{componentes/nav :: header}"></div>
+        <main style="padding: 40px;" class="col-10">
+            <h1 class="my-4">Registro de Asistencia</h1>
+            <form class="row" action="/registrar/asistencia/guardar" method="POST" th:object="${nuevoAsistente}">
+                <div class="col-4">
+                    <input type="hidden" name="id" th:field="*{id}">
+
+                    <label class="form-label" for="nombres">Nombres:</label>
+                    <input class="form-control" type="text" id="nombres" th:field="*{nombres}" name="event"
+                           required><br>
+
+                    <label class="form-label" for="dni">Dni:</label>
+                    <input class="form-control" type="text" id="dni" th:field="*{dni}" required><br>
+
+                    <label class="form-label" for="phone">Telefono:</label>
+                    <input class="form-control" type="text" id="phone" th:field="*{telefono}" required><br>
+
+                    <label class="form-label" for="email">Email:</label>
+                    <input class="form-control" type="text" id="email" th:field="*{email}" required><br>
+                    <button style="background: #57CE8E; border: none;" class="btn btn-success w-100" type="submit">
+                        Registrar Asistencia
+                    </button>
+                    <p style="width: 100%; margin: 1em 0; background: #57CE8E; padding: 1em 0; font-size: 18px; color: #fff;" id="mensaje" class="badge text-bg-danger hidden"
+                       th:text="${mensaje}">
+                    </p>
+                </div>
+                <div class="col-4">
+                    <label style="font-weight: bold;" class="d-block" for="evento">Seleccionar Actividad o
+                        Evento:</label>
+                    <select style="padding: 12px; border-radius:4px; width:400px; border: none; background: #ededed;"
+                            class="w-100" name="idEvento" id="evento">
+                        <option th:each="evento : ${eventosList}" th:value="${evento.id_evento}"
+                                th:text="${evento.nombre_evento}"></option>
+                    </select>
+                    <a id="verificarDisponibilidadLink" style="background: #55BAD0; border: none;"
+                       class="btn btn-primary my-2 w-100">Verificar
+                        Disponibilidad Evento</a>
+                </div>
+            </form>
+            <div class="row my-4">
+                <div class="col-12">
+                    <div style="display: flex; justify-content: space-between; align-items: center; background: #FFF1CD; color: #000; padding: 16px;"
+                         th:if="${registroEvento != null}">
+                        <p style="font-weight: bold;" th:text="${registroEvento.id_evento.nombre_evento}"></p>
+                        <p style="font-weight: bold;">Aforo: <span
+                                style="color: #5E2EAC; font-weight: bold; font-size: 24px;"
+                                th:text="${registroEvento.id_evento.aforoMaximo}"></span></p>
+                    </div>
+                    <table style="margin-top: 0px !important;" class="table my-4">
+                        <thead style="background: #FFF1CD; border: none;">
+                        <tr>
+                            <th>DNI</th>
+                            <th>Nombres y Apellidos</th>
+                            <th>Teléfono</th>
+                            <th>Email</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="registro : ${registrosSearch}">
+                            <td th:text="${registro.id_asistente.dni}"></td>
+                            <td th:text="${registro.id_asistente.nombres}"></td>
+                            <td th:text="${registro.id_asistente.telefono}"></td>
+                            <td th:text="${registro.id_asistente.email}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    const selectEvento = document.getElementById("evento");
+    const verificarDisponibilidadLink = document.getElementById("verificarDisponibilidadLink");
+
+    selectEvento.addEventListener("click", function() {
+        var idEventoSeleccionado = selectEvento.value;
+        var nuevaURL = "/registrar/asistencia/" + idEventoSeleccionado;
+        verificarDisponibilidadLink.href = nuevaURL;
+    });
+</script>
+<script th:inline="javascript">
+    var mensajeElement = document.getElementById('mensaje');
+
+    mensajeElement.classList.remove('hidden');
+
+    setTimeout(function () {
+        mensajeElement.classList.add('hidden');
+    }, 3000);
+</script>
+</body>
+</html>

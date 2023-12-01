@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Eventos | Iglesia</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .hidden {
+			display: none;
+		}
+    </style>
+</head>
+<body style="height: 100vh">
+<div style="height: inherit;" class="container-fluid">
+    <div style="height: inherit;" class="row">
+        <div th:replace="~{componentes/nav :: header}"></div>
+        <main style="padding: 40px;" class="col-10">
+            <div class="row justify-content-center">
+                <form class="col-6" action="/registrar/evento/guardar" method="POST" th:object="${nuevoEvento}">
+                    <h1 class="my-4">Registro de Eventos</h1>
+                    <input type="hidden" name="id" th:field="*{id_evento}">
+
+                    <label class="form-label" for="nombre">Nombres:</label>
+                    <input class="form-control" type="text" id="nombre" th:field="*{nombre_evento}"
+                           required><br>
+
+                    <label class="form-label" for="direccion">Dirección:</label>
+                    <input class="form-control" type="text" id="direccion" th:field="*{direccion}" required><br>
+
+                    <label class="form-label" for="descripcion">Descripción:</label>
+                    <input class="form-control" type="text" id="descripcion" th:field="*{descripcion}" required><br>
+
+                    <label class="form-label" for="fecha">Fecha:</label>
+                    <input class="form-control" type="date" id="fecha" th:field="*{fecha}" required><br>
+
+                    <label class="form-label" for="precio">Precio:</label>
+                    <input class="form-control" type="text" id="precio" th:field="*{precio}" required><br>
+
+                    <label class="form-label" for="aforo">Aforo:</label>
+                    <input class="form-control" type="number" id="aforo" th:field="*{aforoMaximo}" required><br>
+
+                    <label class="form-label" for="estado">Estado Evento:</label>
+                    <input class="form-control" type="text" id="estado" th:field="*{estado_evento}"
+                           required><br>
+
+                    <button class="btn btn-success" type="submit">Registrar Evento</button>
+                    <p style="width: 100%; margin: 1em 0; background: #57CE8E; padding: 1em 0; font-size: 18px; color: #fff;" id="mensaje" class="badge text-bg-danger hidden"
+                       th:text="${mensaje}">
+                    </p>
+                </form>
+            </div>
+        </main>
+    </div>
+</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script th:inline="javascript">
+    var mensajeElement = document.getElementById('mensaje');
+
+    mensajeElement.classList.remove('hidden');
+
+    setTimeout(function () {
+        mensajeElement.classList.add('hidden');
+    }, 3000);
+</script>
+</body>
+</html>
